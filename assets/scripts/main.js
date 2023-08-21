@@ -11,6 +11,10 @@ const middleContTopBarHeight = document.querySelector(
   ".middle-container .top-bar"
 );
 
+const subjectFieldErrMsg = document.querySelector("#note-subject-field-msg");
+const topicFieldErrMsg = document.querySelector("#subject-topic-field-msg");
+const subheadingErrMsg = document.querySelector("#sub-headings-field-msg");
+
 let subjectUniqueId;
 let uniqueIdCounts = 0;
 let existingUniqueId = [];
@@ -64,6 +68,41 @@ const addContentBtnHandler = () => {
     }
   }
 
+  // validation checks
+  const topicDefaultMsg = topicFieldErrMsg.innerHTML;
+
+  const errMsg = (field, msg) => {
+    field.textContent = msg;
+    field.style.color = "red";
+
+    setTimeout(() => {
+      field.textContent = "";
+      field.style.color = "transparent";
+
+      if (!isNaN(subjectTopicInput.value)) {
+        topicFieldErrMsg.innerHTML = topicDefaultMsg;
+        topicFieldErrMsg.style.color = "#616060";
+        console.log(topicFieldErrMsg)
+      }
+    }, 5000);
+
+    
+
+    return;
+  };
+
+  if (!subjectNameInput.value || !isNaN(subjectNameInput.value)) {
+    errMsg(subjectFieldErrMsg, "Enter your field subject");
+  }
+
+  if (!isNaN(subjectTopicInput.value)) {
+    errMsg(topicFieldErrMsg, "Enter a valid detail");
+  }
+
+  if (!topicSubHeadingInput.value || !isNaN(topicSubHeadingInput.value)) {
+    errMsg(subheadingErrMsg, "Tell us what you're learning");
+  }
+
   // get the user entry data
   subject = `${subjectNameInput.value.trim()} \n`;
   topic = `${subjectTopicInput.value.trim()} \n`;
@@ -79,18 +118,16 @@ const addContentBtnHandler = () => {
   const cursorPositon = quill.getSelection();
 
   // insert entries to editor
-  const isEditorEmpty = quill.getText().trim();
+  // const isEditorEmpty = quill.getText().trim();
 
-  if (!isEditorEmpty) {
-    quill.insertText(quill.getLength(), subject, subjectNameInputFormat);
-    quill.insertText(quill.getLength(), topic, subjectTopicInputFormat);
+  // quill.insertText(quill.getLength(), subject, subjectNameInputFormat);
+  // quill.insertText(quill.getLength(), topic, subjectTopicInputFormat);
 
-    subheadingList.forEach((listText, index) => {
-      const subheadingFormat = `\n${index + 1}. ${listText}\n`;
+  // subheadingList.forEach((listText, index) => {
+  //   const subheadingFormat = `\n${index + 1}. ${listText}\n`;
 
-      quill.insertText(quill.getLength(), subheadingFormat);
-    });
-  }
+  //   quill.insertText(quill.getLength(), subheadingFormat);
+  // });
 };
 
 submitSubjectDataBtn.addEventListener("click", addContentBtnHandler);
