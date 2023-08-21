@@ -1,0 +1,17 @@
+{
+  "name": "projectday",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "c"
+  ],
+  "author": "C",
+  "license": "ISC",
+  "dependencies": {
+    "quill": "^1.3.7"
+  }
+}
